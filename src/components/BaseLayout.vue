@@ -2,8 +2,10 @@
   <div class="base">
     <navigation></navigation>
     <div class="container">
-      <div class="col-lg-12">
-        <slot name="content"></slot>
+      <div class="row">
+        <div class="col-lg-12">
+          <slot name="content"></slot>
+        </div>
       </div>
     </div>
   </div>
