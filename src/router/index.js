@@ -1,15 +1,28 @@
 import Vue from 'vue'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Blogs from '@/components/blogs/Blogs'
+import BlogEdit from '@/components/blogs/BlogEdit'
 
-Vue.use(Router)
+Vue.use(Router, VueAxios, axios)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Blogs',
+      component: Blogs
+    },
+    {
+      path: '/blog/',
+      name: 'CreateBlog',
+      component: BlogEdit
+    },
+    {
+      path: '/blog/:id',
+      name: 'EditBlog',
+      component: BlogEdit
     }
   ]
 })
