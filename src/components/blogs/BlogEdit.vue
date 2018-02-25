@@ -55,12 +55,12 @@ export default {
   methods: {
     saveBlog: function (blog) {
       if (blog.id && blog.id > 0) {
-        axios.put('http://vuedemo.local/api/blogs/' + blog.id, blog)
+        axios.put('https://arcane-fjord-92541.herokuapp.com/api/blogs/' + blog.id, blog)
           .then(response => {
             router.push({name: 'Blogs'})
           })
       } else {
-        axios.post('http://vuedemo.local/api/blogs', blog)
+        axios.post('https://arcane-fjord-92541.herokuapp.com/api/blogs', blog)
           .then(response => {
             router.push({name: 'Blogs'})
           })
@@ -70,7 +70,7 @@ export default {
       }
     },
     getBlog: function (id) {
-      axios.get('http://vuedemo.local/api/blogs/' + id)
+      axios.get('https://arcane-fjord-92541.herokuapp.com/api/blogs/' + id)
         .then(response => {
           this.blog = response.data
         })

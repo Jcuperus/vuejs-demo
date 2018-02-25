@@ -25,13 +25,13 @@ export default {
   },
   methods: {
     getBlogs: function () {
-      axios.get('http://vuedemo.local/api/blogs')
+      axios.get('https://arcane-fjord-92541.herokuapp.com/api/blogs')
         .then(response => {
           this.blogs = response.data
         })
     },
     deleteBlog: function (id) {
-      axios.delete('http://vuedemo.local/api/blogs/' + id)
+      axios.delete('https://arcane-fjord-92541.herokuapp.com/api/blogs/' + id)
         .then(response => {
           console.log(id + ' deleted')
           this.getBlogs()
