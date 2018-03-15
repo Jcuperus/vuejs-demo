@@ -5,12 +5,16 @@
             <h2>Login</h2>
           </div>
           <div class="card-body">
-            <form @submit.prevent="this.login(credentials)">
+            <form @submit.prevent="login(username, password)">
               <div class="form-group">
-                <input type="text" class="form-control" v-model="credentials.username" placeholder="Username">
+                <validated-input v-bind:errors="errors.username">
+                  <input type="text" class="form-control" v-model="credentials.username" placeholder="Username">
+                </validated-input>
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" v-model="credentials.password" placeholder="Password">
+                <validated-input v-bind:errors="errors.password">
+                  <input type="password" class="form-control" v-model="credentials.password" placeholder="Password">
+                </validated-input>
               </div>
               <div class="form-group">
                 <input type="submit" class="btn btn-primary">
@@ -29,15 +33,23 @@ export default {
   data () {
     return {
       credentials: {
-        username: '',
-        password: ''
+        username: null,
+        password: null
+      },
+      errors: {
+        username: null,
+        password: null
       }
     }
   },
   methods: {
-    login: function (credentials) {
-      login(this.username, this.password).then(response => {
-        router.push({ name: 'Blogs' })
+    login: function (username, password) {
+      login(username, password).then(response => {
+        console.log(response)
+        // router.push({ name: 'Blogs' })
+      }).catch(e => {
+        this.errors = e.response.data.errors
+        console.log(this.errors)
       })
     }
   }

@@ -7,6 +7,7 @@ import router from './router'
 import BaseLayout from '@/components/BaseLayout'
 import Header from '@/components/base/Header'
 import Sidebar from '@/components/base/Sidebar'
+import ValidatedInput from '@/components/common/ValidatedInput'
 import Blog from '@/components/blogs/Blog'
 import BlogEdit from '@/components/blogs/BlogEdit'
 
@@ -17,6 +18,7 @@ Vue.component('sidebar', Sidebar)
 Vue.component('base-layout', BaseLayout)
 Vue.component('blog', Blog)
 Vue.component('blog-edit', BlogEdit)
+Vue.component('validated-input', ValidatedInput)
 
 /* eslint-disable no-new */
 new Vue({

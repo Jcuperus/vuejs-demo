@@ -8,15 +8,21 @@
             <form @submit.prevent="saveBlog(blog)">
               <div class="form-group">
                 <label>Title</label>
-                <input type="text" class="form-control" v-model="blog.title">
+                <validated-input v-bind:errors="errors.title">
+                  <input type="text" class="form-control" v-model="blog.title">
+                </validated-input>
               </div>
               <div class="form-group">
                 <label>Author</label>
-                <input type="text" class="form-control" v-model="blog.author">
+                <validated-input v-bind:errors="errors.content">
+                  <input type="text" class="form-control" v-model="blog.author">
+                </validated-input>
               </div>
               <div class="form-group">
                 <label>Content</label>
-                <textarea class="form-control" v-model="blog.content" rows="10"></textarea>
+                <validated-input v-bind:errors="errors.content">
+                  <textarea class="form-control" v-model="blog.content" rows="10"></textarea>
+                </validated-input>
               </div>
               <div class="form-group">
                 <input class="btn btn-primary" type="submit">
@@ -44,6 +50,11 @@ export default {
         title: null,
         author: null,
         content: null
+      },
+      errors: {
+        title: null,
+        author: null,
+        content: null
       }
     }
   },
@@ -57,11 +68,14 @@ export default {
       if (blog.id && blog.id > 0) {
         updateBlog(blog.id, blog).then(response => {
           router.push({name: 'Blogs'})
+        }).catch(e => {
+          this.errors = e.response.data.errors
         })
       } else {
         createBlog(blog).then(response => {
           router.push({name: 'Blogs'})
         }).catch(e => {
+          this.errors = e.response.data.errors
           console.log(e)
         })
       }
