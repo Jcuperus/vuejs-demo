@@ -1,17 +1,19 @@
 <template>
   <div class="blogs">
     <a class="btn btn-default btn-primary btn-block" href="#" v-on:click.prevent="$router.push({name: 'CreateBlog'})">Create new blog</a>
-    <blog v-for="blog in blogs" :key="blog.id" v-bind:title="blog.title" v-bind:author="blog.author" v-bind:editable="false" v-bind:content="blog.content">
-      <span slot="actions">
-        <a class="btn btn-danger" v-on:click.prevent="deleteBlog(blog.id)"><i class="fa fa-trash"></i></a>
-        <a class="btn btn-primary" v-on:click.prevent="openBlog(blog.id)"><i class="fa fa-edit"></i></a>
-      </span>
-    </blog>
+      <transition-group name="blogs-complete">
+        <blog v-for="(blog, index) in blogs" :key="blog.id" v-bind:title="blog.title" v-bind:author="blog.author" v-bind:editable="false" v-bind:content="blog.content" v-bind:index="index">
+          <span slot="actions">
+            <a class="btn btn-danger" v-on:click.prevent="deleteBlog(blog.id)"><i class="fa fa-trash"></i></a>
+            <a class="btn btn-primary" v-on:click.prevent="openBlog(blog.id)"><i class="fa fa-edit"></i></a>
+          </span>
+        </blog>
+      </transition-group>
   </div>
 </template>
 <script>
-import axios from 'axios'
-import router from '../../router'
+import {getBlogs, deleteBlog} from '@/utils/blog-api-helper'
+import router from '@/router'
 
 export default {
   name: 'Blogs',
@@ -21,24 +23,22 @@ export default {
     }
   },
   created () {
-    this.getBlogs()
+    this.updateBlogs()
   },
   methods: {
-    getBlogs: function () {
-      axios.get('https://arcane-fjord-92541.herokuapp.com/api/blogs')
-        .then(response => {
-          this.blogs = response.data
-        })
+    openBlog: function (id) {
+      router.push({ name: 'EditBlog', params: { id: id } })
     },
     deleteBlog: function (id) {
-      axios.delete('https://arcane-fjord-92541.herokuapp.com/api/blogs/' + id)
-        .then(response => {
-          console.log(id + ' deleted')
-          this.getBlogs()
-        })
+      console.log(id)
+      deleteBlog(id).then(response => {
+        this.updateBlogs()
+      })
     },
-    openBlog: function (id) {
-      router.push({name: 'EditBlog', params: { id: id }})
+    updateBlogs: function () {
+      getBlogs().then(response => {
+        this.blogs = response.data
+      })
     }
   }
 }

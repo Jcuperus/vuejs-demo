@@ -2,6 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Router from 'vue-router'
+import Login from '@/components/login/Login'
 import Blogs from '@/components/blogs/Blogs'
 import BlogEdit from '@/components/blogs/BlogEdit'
 
@@ -12,7 +13,14 @@ export default new Router({
     {
       path: '/',
       name: 'Blogs',
-      component: Blogs
+      component: Blogs,
+      label: 'Home'
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+      label: 'Login'
     },
     {
       path: '/blog/',

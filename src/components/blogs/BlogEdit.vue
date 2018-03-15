@@ -32,8 +32,8 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
-import router from '../../router'
+import {getBlog, createBlog, updateBlog} from '@/utils/blog-api-helper'
+import router from '@/router'
 
 export default {
   name: 'blogEdit',
@@ -55,25 +55,21 @@ export default {
   methods: {
     saveBlog: function (blog) {
       if (blog.id && blog.id > 0) {
-        axios.put('https://arcane-fjord-92541.herokuapp.com/api/blogs/' + blog.id, blog)
-          .then(response => {
-            router.push({name: 'Blogs'})
-          })
+        updateBlog(blog.id, blog).then(response => {
+          router.push({name: 'Blogs'})
+        })
       } else {
-        axios.post('https://arcane-fjord-92541.herokuapp.com/api/blogs', blog)
-          .then(response => {
-            router.push({name: 'Blogs'})
-          })
-          .catch(e => {
-            console.log(e)
-          })
+        createBlog(blog).then(response => {
+          router.push({name: 'Blogs'})
+        }).catch(e => {
+          console.log(e)
+        })
       }
     },
     getBlog: function (id) {
-      axios.get('https://arcane-fjord-92541.herokuapp.com/api/blogs/' + id)
-        .then(response => {
-          this.blog = response.data
-        })
+      getBlog(id).then(response => {
+        this.blog = response.data
+      })
     }
   }
 }

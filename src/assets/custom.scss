@@ -21,12 +21,27 @@ body {
     background-color: #ffffff;
 }
 
-.container {
+.nav-pills .nav-link {
+    margin-bottom: 5px;
+    transition: background-color 500ms;
+    transition: color 500ms;
+}
+
+.nav-pills .nav-link.router-link-exact-active, 
+.nav-pills .show > .nav-link {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.container-fluid {
     margin-top: 10px;
 }
 
 .blog {
     padding: 10px 0;
+    position: relative;
+    overflow: hidden;
+    transition: all 500ms;
 }
 
 .actions {
@@ -37,4 +52,32 @@ body {
 .card > .card-body > h6.card-subtitle {
     color: #6c757d;
     margin-bottom: 1rem;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 200ms;
+}
+
+.blogs-complete-enter {
+    opacity: 0;
+    transform: translateX(-30px);
+}
+
+.blogs-complete-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+.blogs-complete-leave-active {
+    position: absolute;
+}
+
+.blogs-complete-move {
+    transition: transform 500ms;
 }

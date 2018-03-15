@@ -1,9 +1,12 @@
 <template>
   <div class="base">
-    <navigation></navigation>
-    <div class="container">
+    <slot name="header"></slot>
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-2">
+          <slot name="sidebar"></slot>
+        </div>
+        <div class="col-lg-8">
           <slot name="content"></slot>
         </div>
       </div>
