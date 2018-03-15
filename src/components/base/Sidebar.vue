@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <div class="nav flex-column nav-pills" aria-orientation="vertical">
-      <router-link v-for="route in routes" :key="route.url" class="nav-link" :to="route" role="tab">{{route.label}}</router-link>
+      <router-link v-for="route in routes" :key="route.url" class="nav-link" :to="route" role="tab">{{ route.label }}</router-link>
     </div>
   </div>
 </template>
@@ -18,7 +18,6 @@ export default {
   created () {
     this.routes = router.options.routes.filter(route => {
       if (route.label && route.label !== '') {
-        console.log(route)
         return route
       }
     })

@@ -13,12 +13,6 @@
                 </validated-input>
               </div>
               <div class="form-group">
-                <label>Author</label>
-                <validated-input v-bind:errors="errors.content">
-                  <input type="text" class="form-control" v-model="blog.author">
-                </validated-input>
-              </div>
-              <div class="form-group">
                 <label>Content</label>
                 <validated-input v-bind:errors="errors.content">
                   <textarea class="form-control" v-model="blog.content" rows="10"></textarea>
@@ -30,7 +24,7 @@
             </form>
           </div>
           <div class="col-lg-6">
-            <blog v-bind:title="blog.title" v-bind:author="blog.author" v-bind:content="blog.content" created_at="Today"></blog>
+            <blog v-bind:title="blog.title" v-bind:author="blog.user.name" v-bind:content="blog.content" created_at="Today"></blog>
           </div>
         </div>
       </div>
@@ -48,35 +42,47 @@ export default {
       blog: {
         id: null,
         title: null,
-        author: null,
-        content: null
+        content: null,
+        user: {
+          name: 'You'
+        }
       },
       errors: {
         title: null,
-        author: null,
         content: null
       }
     }
   },
-  created () {
-    if (this.$route.params.id && this.$route.params.id >= 0) {
-      this.getBlog(this.$route.params.id)
+  beforeRouteEnter (to, from, next) {
+    if (to.params.id) {
+      getBlog(to.params.id).then(response => {
+        next(vm => vm.setBlog(response.data))
+      })
+    } else {
+      next()
     }
+  },
+  beforeRouteUpdate (to, from, next) {
+    if (to.params.id) {
+      getBlog(to.params.id).then(response => {
+        this.setBlog(response.data)
+      })
+    }
+    next()
   },
   methods: {
     saveBlog: function (blog) {
       if (blog.id && blog.id > 0) {
         updateBlog(blog.id, blog).then(response => {
-          router.push({name: 'Blogs'})
+          router.push({ name: 'Blogs' })
         }).catch(e => {
           this.errors = e.response.data.errors
         })
       } else {
         createBlog(blog).then(response => {
-          router.push({name: 'Blogs'})
+          router.push({ name: 'Blogs' })
         }).catch(e => {
           this.errors = e.response.data.errors
-          console.log(e)
         })
       }
     },
@@ -84,6 +90,9 @@ export default {
       getBlog(id).then(response => {
         this.blog = response.data
       })
+    },
+    setBlog: function (blog) {
+      this.blog = blog
     }
   }
 }

@@ -5,10 +5,10 @@
             <h2>Login</h2>
           </div>
           <div class="card-body">
-            <form @submit.prevent="login(username, password)">
+            <form @submit.prevent="login(credentials.email, credentials.password)">
               <div class="form-group">
-                <validated-input v-bind:errors="errors.username">
-                  <input type="text" class="form-control" v-model="credentials.username" placeholder="Username">
+                <validated-input v-bind:errors="errors.email">
+                  <input type="text" class="form-control" v-model="credentials.email" placeholder="E-mail">
                 </validated-input>
               </div>
               <div class="form-group">
@@ -25,7 +25,7 @@
   </div>
 </template>
 <script>
-import {login} from '@/utils/login-api-helper'
+import { login, storeToken } from '@/utils/login-api-helper'
 import router from '@/router'
 
 export default {
@@ -33,23 +33,31 @@ export default {
   data () {
     return {
       credentials: {
-        username: null,
+        email: null,
         password: null
       },
       errors: {
-        username: null,
-        password: null
+        email: null,
+        password: null,
+        auth: null
       }
     }
   },
   methods: {
-    login: function (username, password) {
-      login(username, password).then(response => {
-        console.log(response)
-        // router.push({ name: 'Blogs' })
+    login: function (email, password) {
+      login(email, password).then(response => {
+        if (response.status === 200) {
+          storeToken(response.data)
+          router.push({ name: 'Blogs' })
+        } else {
+          console.log(response, 'auth failed')
+        }
       }).catch(e => {
-        this.errors = e.response.data.errors
-        console.log(this.errors)
+        if (e.response.status === 422) {
+          this.errors = e.response.data.errors
+        } else if (e.response.status === 401) {
+          this.errors.auth = 'Invalid credentials'
+        }
       })
     }
   }

@@ -3,7 +3,7 @@
     <slot></slot>
     <small v-if="errors && errors.length > 0" class="form-text text-danger">
       <ul>
-        <li v-for="error in errors" :key="error">{{error}}</li>
+        <li v-for="error in errors" :key="error">{{ error }}</li>
       </ul>
     </small>
   </div>
