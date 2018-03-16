@@ -13,10 +13,6 @@ const baseRoutes = [
     name: 'Login',
     component: Login,
     label: 'Login'
-  },
-  {
-    path: '/',
-    redirect: { name: 'Blogs' }
   }
 ]
 

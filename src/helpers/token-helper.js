@@ -9,10 +9,8 @@ export default {
   },
   getToken: function () {
     if (typeof this.accessToken !== 'undefined' && this.accessToken !== null) {
-      console.log('foo')
       return this.accessToken
     } else if (sessionStorage.getItem('token')) {
-      console.log('bar')
       return sessionStorage.getItem('token')
     }
     return ''

@@ -3,9 +3,10 @@ import Blogs from '../Blogs'
 
 export default [
   {
-    path: 'blogs',
+    path: '/',
     name: 'Blogs',
-    component: Blogs
+    component: Blogs,
+    alias: '/blogs'
   },
   {
     path: 'blog',
