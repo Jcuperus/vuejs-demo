@@ -8,8 +8,8 @@ import BaseLayout from '@/components/BaseLayout'
 import Header from '@/components/base/Header'
 import Sidebar from '@/components/base/Sidebar'
 import ValidatedInput from '@/components/common/ValidatedInput'
-import Blog from '@/components/blogs/Blog'
-import BlogEdit from '@/components/blogs/BlogEdit'
+import Blog from '@/modules/blogs/Blog'
+import BlogEdit from '@/modules/blogs/BlogEdit'
 
 Vue.config.productionTip = false
 

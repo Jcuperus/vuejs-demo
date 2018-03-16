@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-import {getBlog, createBlog, updateBlog} from '@/utils/blog-api-helper'
+import BlogApiHelper from './helpers/blog-api-helper'
 import router from '@/router'
 
 export default {
@@ -55,7 +55,7 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     if (to.params.id) {
-      getBlog(to.params.id).then(response => {
+      BlogApiHelper.getBlog(to.params.id).then(response => {
         next(vm => vm.setBlog(response.data))
       })
     } else {
@@ -64,7 +64,7 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     if (to.params.id) {
-      getBlog(to.params.id).then(response => {
+      BlogApiHelper.getBlog(to.params.id).then(response => {
         this.setBlog(response.data)
       })
     }
@@ -73,13 +73,13 @@ export default {
   methods: {
     saveBlog: function (blog) {
       if (blog.id && blog.id > 0) {
-        updateBlog(blog.id, blog).then(response => {
+        BlogApiHelper.updateBlog(blog.id, blog).then(response => {
           router.push({ name: 'Blogs' })
         }).catch(e => {
           this.errors = e.response.data.errors
         })
       } else {
-        createBlog(blog).then(response => {
+        BlogApiHelper.createBlog(blog).then(response => {
           router.push({ name: 'Blogs' })
         }).catch(e => {
           this.errors = e.response.data.errors
@@ -87,7 +87,7 @@ export default {
       }
     },
     getBlog: function (id) {
-      getBlog(id).then(response => {
+      BlogApiHelper.getBlog(id).then(response => {
         this.blog = response.data
       })
     },

@@ -81,3 +81,7 @@ body {
 .blogs-complete-move {
     transition: transform 500ms;
 }
+
+.form-group > .is-invalid > .form-control {
+    border-color: #dc3545;
+}

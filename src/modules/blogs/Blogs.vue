@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import {getBlogs, deleteBlog} from '@/utils/blog-api-helper'
+import BlogApiHelper from './helpers/blog-api-helper'
 import router from '@/router'
 
 export default {
@@ -30,12 +30,12 @@ export default {
       router.push({ name: 'EditBlog', params: { id: id } })
     },
     deleteBlog: function (id) {
-      deleteBlog(id).then(response => {
+      BlogApiHelper.deleteBlog(id).then(response => {
         this.updateBlogs()
       })
     },
     updateBlogs: function () {
-      getBlogs().then(response => {
+      BlogApiHelper.getBlogs().then(response => {
         this.blogs = response.data
       })
     }

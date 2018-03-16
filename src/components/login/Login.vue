@@ -5,6 +5,7 @@
             <h2>Login</h2>
           </div>
           <div class="card-body">
+            <small class="form-text text-danger" v-if="errors.auth !== null">{{ errors.auth }}</small>
             <form @submit.prevent="login(credentials.email, credentials.password)">
               <div class="form-group">
                 <validated-input v-bind:errors="errors.email">
@@ -25,7 +26,8 @@
   </div>
 </template>
 <script>
-import { login, storeToken } from '@/utils/login-api-helper'
+import LoginApiHelper from '@/helpers/login-api-helper'
+import TokenHelper from '@/helpers/token-helper'
 import router from '@/router'
 
 export default {
@@ -45,17 +47,18 @@ export default {
   },
   methods: {
     login: function (email, password) {
-      login(email, password).then(response => {
+      LoginApiHelper.login(email, password).then(response => {
+        console.log(response)
         if (response.status === 200) {
-          storeToken(response.data)
+          TokenHelper.storeToken(response.data.accessToken)
           router.push({ name: 'Blogs' })
         } else {
-          console.log(response, 'auth failed')
+          this.errors.auth = 'Invalid crendentials'
         }
       }).catch(e => {
         if (e.response.status === 422) {
           this.errors = e.response.data.errors
-        } else if (e.response.status === 401) {
+        } else {
           this.errors.auth = 'Invalid credentials'
         }
       })
