@@ -12,11 +12,15 @@
   </div>
 </template>
 <script>
+import Blog from './Blog'
 import BlogApiHelper from './helpers/blog-api-helper'
 import router from '@/router'
 
 export default {
   name: 'Blogs',
+  components: {
+    Blog
+  },
   data () {
     return {
       blogs: []

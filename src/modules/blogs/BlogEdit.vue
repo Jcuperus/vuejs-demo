@@ -32,11 +32,15 @@
   </div>
 </template>
 <script>
+import Blog from './Blog'
 import BlogApiHelper from './helpers/blog-api-helper'
 import router from '@/router'
 
 export default {
   name: 'blogEdit',
+  components: {
+    Blog
+  },
   data: function () {
     return {
       blog: {

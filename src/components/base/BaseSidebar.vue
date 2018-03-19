@@ -9,7 +9,7 @@
 import router from '@/router'
 
 export default {
-  name: 'Sidebar',
+  name: 'BaseSidebar',
   data () {
     return {
       routes: []
@@ -21,8 +21,6 @@ export default {
         return route
       }
     })
-  },
-  methods: {
   }
 }
 </script>
