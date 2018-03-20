@@ -24,7 +24,7 @@
             </form>
           </div>
           <div class="col-lg-6">
-            <blog v-bind:title="blog.title" v-bind:author="blog.user.name" v-bind:content="blog.content" created_at="Today"></blog>
+            <blog v-bind="blog" created_at="Today"></blog>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@ import BlogApiHelper from './helpers/blog-api-helper'
 import router from '@/router'
 
 export default {
-  name: 'blogEdit',
+  name: 'BlogEdit',
   components: {
     Blog
   },

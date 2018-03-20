@@ -14,7 +14,7 @@
       <div class="card-body">
         <h6 class="card-subtitle">{{ created_at }}</h6>
         <p class="card-text">{{ content }}</p>
-        <footer class="blockquote-footer">Written by: {{ author }}</footer>
+        <footer class="blockquote-footer">Written by: {{ user.name }}</footer>
       </div>
     </div>
   </div>
@@ -22,6 +22,6 @@
 <script>
 export default {
   name: 'Blog',
-  props: ['title', 'author', 'created_at', 'content']
+  props: ['title', 'user', 'created_at', 'content']
 }
 </script>

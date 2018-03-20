@@ -64,6 +64,10 @@ body {
     transition: opacity 200ms;
 }
 
+.blogs > .btn.btn-block {
+    margin-bottom: 10px;
+}
+
 .blogs-complete-enter {
     opacity: 0;
     transform: translateX(-30px);
@@ -80,6 +84,11 @@ body {
 
 .blogs-complete-move {
     transition: transform 500ms;
+}
+
+.blogs > .paginated > .btn-group {
+    display: flex;
+    justify-content: center;
 }
 
 .form-group > .is-invalid > .form-control {

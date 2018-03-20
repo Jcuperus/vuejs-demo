@@ -10,3 +10,7 @@ export const http = axios.create({
     Authorization: 'Bearer ' + token
   }
 })
+
+export function trimUrl (url) {
+  return url.replace(http.defaults.baseURL, '')
+}

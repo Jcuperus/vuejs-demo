@@ -1,17 +1,14 @@
 <template>
   <div class="blogs">
     <a class="btn btn-default btn-primary btn-block" href="#" v-on:click.prevent="$router.push({ name: 'CreateBlog' })">Create new blog</a>
-      <transition-group name="blogs-complete">
-        <blog v-for="(blog, index) in blogs" :key="blog.id" v-bind:title="blog.title" v-bind:author="blog.user.name" v-bind:editable="false" v-bind:content="blog.content" v-bind:index="index">
-          <span slot="actions">
-            <a class="btn btn-danger" v-on:click.prevent="deleteBlog(blog.id)"><i class="fa fa-trash"></i></a>
-            <a class="btn btn-primary" v-on:click.prevent="openBlog(blog.id)"><i class="fa fa-edit"></i></a>
-          </span>
-        </blog>
-      </transition-group>
+    <paginated-list v-bind:paginated="blogs">
+      <blog slot="item" slot-scope="blog" v-bind="blog"></blog>
+    </paginated-list>
   </div>
 </template>
 <script>
+import PaginatedList from '@/components/common/PaginatedList'
+import BlogsList from './BlogsList'
 import Blog from './Blog'
 import BlogApiHelper from './helpers/blog-api-helper'
 import router from '@/router'
@@ -19,6 +16,8 @@ import router from '@/router'
 export default {
   name: 'Blogs',
   components: {
+    PaginatedList,
+    BlogsList,
     Blog
   },
   data () {
