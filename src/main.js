@@ -12,6 +12,17 @@ Vue.config.productionTip = false
 Vue.component('BaseLayout', BaseLayout)
 Vue.component('ValidatedInput', ValidatedInput)
 
+Vue.directive('scroll', {
+  inserted: function (element, binding) {
+    let func = function (eventt) {
+      if (binding.value(event, element)) {
+        window.removeEventListener('scroll', func)
+      }
+    }
+    window.addEventListener('scroll', func)
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

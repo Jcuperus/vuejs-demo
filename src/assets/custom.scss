@@ -91,6 +91,17 @@ body {
     justify-content: center;
 }
 
+.endless .top {
+    position: fixed;
+    display: none;
+    right: 10px;
+    bottom: 10px;
+}
+
+.endless .top.visible {
+    display: block;
+}
+
 .form-group > .is-invalid > .form-control {
     border-color: #dc3545;
 }
