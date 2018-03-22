@@ -1,8 +1,10 @@
 <template>
   <div class="endless" v-scroll="handleScroll">
-    <div v-for="item in items" v-bind:key="item.id">
-      <slot name="item" v-bind="item"></slot>
-    </div>
+    <transition-group appear name="panel-slide">
+      <div class="panel-slide-item" v-for="item in items" v-bind:key="item.id">
+        <slot name="item" class="panel-slide-item" v-bind="item"></slot>
+      </div>
+    </transition-group>
     <button class="top btn btn-primary" v-bind:class="{ visible: items.length > 10 }" v-on:click="top">
       <i class="fa fa-caret-up"></i>
     </button>
@@ -30,18 +32,19 @@ export default {
           this.current = response.data
           this.items = this.items.concat(this.current.data)
           this.locked = false
-          console.log(this.items)
         })
       }
     },
     handleScroll: function (event, element) {
-      if (window.scrollY >= this.items.length * 200 && !this.locked) {
+      if (window.scrollY >= this.$el.offsetHeight - window.innerHeight && !this.locked) {
         this.locked = true
         this.next()
       }
     },
     top: function () {
-      window.scrollTo(0, 0)
+      window.scroll({
+        top: this.$el.offsetTop
+      })
     }
   },
   watch: {

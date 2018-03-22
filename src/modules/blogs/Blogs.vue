@@ -2,7 +2,7 @@
   <div class="blogs">
     <a class="btn btn-default btn-primary btn-block" href="#" v-on:click.prevent="$router.push({ name: 'CreateBlog' })">Create new blog</a>
     <endless-list v-bind:paginated="blogs">
-      <blog slot="item" slot-scope="blog" v-bind="blog"></blog>
+      <blog slot="item" slot-scope="blog" v-bind="blog" v-bind:key="blog.id"></blog>
     </endless-list>
   </div>
 </template>

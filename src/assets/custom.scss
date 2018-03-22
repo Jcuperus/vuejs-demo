@@ -68,22 +68,26 @@ body {
     margin-bottom: 10px;
 }
 
-.blogs-complete-enter {
+.panel-slide-enter {
     opacity: 0;
     transform: translateX(-30px);
 }
 
-.blogs-complete-leave-to {
+.panel-slide-leave-to {
     opacity: 0;
     transform: translateX(30px);
 }
 
-.blogs-complete-leave-active {
+.panel-slide-leave-active {
     position: absolute;
 }
 
-.blogs-complete-move {
+.panel-slide-move {
     transition: transform 500ms;
+}
+
+.panel-slide-item {
+    transition: all 200ms;
 }
 
 .blogs > .paginated > .btn-group {
