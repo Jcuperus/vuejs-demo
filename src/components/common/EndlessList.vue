@@ -1,11 +1,14 @@
 <template>
   <div class="endless" v-scroll="handleScroll">
-    <transition-group appear name="panel-slide">
-      <div class="panel-slide-item" v-for="item in items" v-bind:key="item.id">
-        <slot name="item" class="panel-slide-item" v-bind="item"></slot>
-      </div>
-    </transition-group>
-    <button class="top btn btn-primary" v-bind:class="{ visible: items.length > 10 }" v-on:click="top">
+    <div v-for="page in pages" class="page" v-bind:key="page.current_page">
+      <transition-group appear name="panel-slide">
+        <div class="panel-slide-item" v-for="item in page.data" v-bind:key="item.id">
+          <slot name="item" class="panel-slide-item" v-bind="item"></slot>
+        </div>
+      </transition-group>
+      <div class="page-divider" v-if="page.next_page_url !== null">Page {{ page.current_page + 1 }}</div>
+    </div>
+    <button class="top btn btn-primary" v-bind:class="{ visible: pages.length > 1 }" v-on:click="top">
       <i class="fa fa-caret-up"></i>
     </button>
   </div>
@@ -20,8 +23,8 @@ export default {
   ],
   data () {
     return {
+      pages: [],
       current: Object.assign({}, this.paginated),
-      items: [],
       locked: false
     }
   },
@@ -30,7 +33,7 @@ export default {
       if (this.current.next_page_url) {
         PaginationHelper.fetchPage(this.current.next_page_url).then(response => {
           this.current = response.data
-          this.items = this.items.concat(this.current.data)
+          this.pages.push(this.current)
           this.locked = false
         })
       }
@@ -50,7 +53,7 @@ export default {
   watch: {
     paginated: function () {
       this.current = this.paginated
-      this.items = this.paginated.data
+      this.pages.push(this.paginated)
     }
   }
 }

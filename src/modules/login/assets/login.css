@@ -1,0 +1,36 @@
+.login-header {
+    height: 30px;
+    display: inline-block;
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 300px;
+    position: relative;
+}
+
+.login-header .login,
+.login-header .user-panel {
+    position: absolute;
+    margin-top: 56px;
+    transition: transform 400ms;
+}
+
+.login-header .login .card,
+.login-header .user-panel .card {
+    border-top: none;
+    background-color: #ffffff;
+}
+
+.login-header .user-panel .card .card-img-top {
+    width: 265px;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.login-header .user-icon {
+    position: absolute;
+    margin: auto;
+    margin-right: 23px;
+    left: 0;
+    right: 0;
+}

@@ -22,6 +22,30 @@
 <script>
 export default {
   name: 'Blog',
-  props: ['title', 'user', 'created_at', 'content']
+  props: {
+    id: {
+      type: Number,
+      default: null
+    },
+    title: {
+      type: String
+    },
+    content: {
+      type: String
+    },
+    user: {
+      name: {
+        type: String,
+        default: 'You'
+      }
+    },
+    created_at: {
+      type: String,
+      default: 'Now'
+    }
+  }
 }
 </script>
+<style  scoped>
+  @import '../../assets/blog.css';
+</style>

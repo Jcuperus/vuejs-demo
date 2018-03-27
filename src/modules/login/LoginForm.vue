@@ -26,8 +26,9 @@
   </div>
 </template>
 <script>
-import LoginApiHelper from '@/helpers/login-api-helper'
+import LoginApiHelper from './helpers/login-api-helper'
 import TokenHelper from '@/helpers/token-helper'
+import CurrentUserHelper from './helpers/current-user-helper'
 
 export default {
   name: 'Login',
@@ -50,6 +51,7 @@ export default {
         console.log(response)
         if (response.status === 200) {
           TokenHelper.storeToken(response.data.accessToken)
+          CurrentUserHelper.storeUser(response.data.user)
           this.$emit('login')
         } else {
           this.errors.auth = 'Invalid crendentials'

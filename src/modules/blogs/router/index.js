@@ -6,16 +6,18 @@ export default [
     path: '/',
     name: 'Blogs',
     component: Blogs,
-    alias: '/blogs'
+    alias: '/blogs',
+    label: 'Home'
   },
   {
-    path: 'blog',
+    path: '/blog',
     name: 'CreateBlog',
     component: BlogEdit,
     children: [
       {
-        path: '/:id',
-        name: 'EditBlog'
+        path: '/:blogId([0-9]+)',
+        name: 'EditBlog',
+        props: true
       }
     ]
   }

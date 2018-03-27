@@ -5,23 +5,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-lg-6">
-            <form @submit.prevent="saveBlog(blog)">
-              <div class="form-group">
-                <label>Title</label>
-                <validated-input v-bind:errors="errors.title">
-                  <input type="text" class="form-control" v-model="blog.title">
-                </validated-input>
-              </div>
-              <div class="form-group">
-                <label>Content</label>
-                <validated-input v-bind:errors="errors.content">
-                  <textarea class="form-control" v-model="blog.content" rows="10"></textarea>
-                </validated-input>
-              </div>
-              <div class="form-group">
-                <input class="btn btn-primary" type="submit">
-              </div>
-            </form>
+            <blog-form v-bind:blog="blog" v-on:save="redirect"/>
           </div>
           <div class="col-lg-6">
             <blog v-bind="blog" created_at="Today"></blog>
@@ -33,13 +17,15 @@
 </template>
 <script>
 import Blog from './Blog'
+import BlogForm from './BlogForm'
 import BlogApiHelper from './helpers/blog-api-helper'
 import router from '@/router'
 
 export default {
   name: 'BlogEdit',
   components: {
-    Blog
+    Blog,
+    BlogForm
   },
   data: function () {
     return {
@@ -58,8 +44,9 @@ export default {
     }
   },
   beforeRouteEnter (to, from, next) {
-    if (to.params.id) {
-      BlogApiHelper.getBlog(to.params.id).then(response => {
+    console.log('enter', to)
+    if (to.params.blogId) {
+      BlogApiHelper.getBlog(to.params.blogId).then(response => {
         next(vm => vm.setBlog(response.data))
       })
     } else {
@@ -67,29 +54,15 @@ export default {
     }
   },
   beforeRouteUpdate (to, from, next) {
-    if (to.params.id) {
-      BlogApiHelper.getBlog(to.params.id).then(response => {
+    console.log('update')
+    if (to.params.blogId) {
+      BlogApiHelper.getBlog(to.params.blogId).then(response => {
         this.setBlog(response.data)
       })
     }
     next()
   },
   methods: {
-    saveBlog: function (blog) {
-      if (blog.id && blog.id > 0) {
-        BlogApiHelper.updateBlog(blog.id, blog).then(response => {
-          router.push({ name: 'Blogs' })
-        }).catch(e => {
-          this.errors = e.response.data.errors
-        })
-      } else {
-        BlogApiHelper.createBlog(blog).then(response => {
-          router.push({ name: 'Blogs' })
-        }).catch(e => {
-          this.errors = e.response.data.errors
-        })
-      }
-    },
     getBlog: function (id) {
       BlogApiHelper.getBlog(id).then(response => {
         this.blog = response.data
@@ -97,6 +70,11 @@ export default {
     },
     setBlog: function (blog) {
       this.blog = blog
+    },
+    redirect: function () {
+      router.push({
+        name: 'Blogs'
+      })
     }
   }
 }

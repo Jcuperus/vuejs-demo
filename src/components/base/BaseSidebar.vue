@@ -1,8 +1,6 @@
 <template>
-  <div class="sidebar">
-    <div class="nav flex-column nav-pills" aria-orientation="vertical">
-      <router-link v-for="route in routes" :key="route.url" class="nav-link" :to="route" role="tab">{{ route.label }}</router-link>
-    </div>
+  <div class="nav flex-column nav-pills" aria-orientation="vertical">
+    <router-link v-for="route in routes" :key="route.url" class="nav-link" :to="route" role="tab">{{ route.label }}</router-link>
   </div>
 </template>
 <script>
